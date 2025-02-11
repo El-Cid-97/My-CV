@@ -1,0 +1,43 @@
+# **Security & IAM Engineering Showcase**  
+**Isaac Esquivel de Alvear**  
+🔹 **Engineering Manager | Security Engineer | IAM Specialist | Database Engineer**  
+🔹 **C++, C#, Java, JavaScript | Cloud & Database Security | Automation & IAM**  
+
+## **Overview**  
+This repository showcases my expertise in **Identity & Access Management (IAM), Security Engineering, Automation, and Software Development**. It contains sample scripts, automation workflows, and security-focused tools that demonstrate my ability to enhance security infrastructures.  
+
+## **🔐 Identity & Access Management (IAM) Automation**  
+- **[PowerShell IAM Scripts](scripts/IAM_Automation.ps1)**: Automates user provisioning, role assignments, and security group management.  
+- **[Okta & SailPoint API Integration](scripts/Okta_SailPoint_API.py)**: Uses Python to automate identity lifecycle management with Okta and SailPoint.  
+- **[CyberArk Vault Management](scripts/CyberArk_Automation.ps1)**: Securely rotates credentials and manages privileged access.  
+
+## **🛡️ Security Engineering & Cloud Security**  
+- **[C# Security Token Validator](security/SecurityTokenValidator.cs)**: A C# implementation for validating security tokens and JWT authentication.  
+- **[Java Secure File Encryption](security/SecureFileEncryption.java)**: Uses AES encryption to protect sensitive data.  
+- **[AWS IAM Policy Generator](cloud/AWS_IAM_Policy_Generator.py)**: Automates AWS IAM policy creation based on security best practices.  
+
+## **⚡ Automation & Scripting**  
+- **[PowerShell System Monitoring](automation/System_Monitoring.ps1)**: Monitors system logs, detects anomalies, and alerts security teams.  
+- **[SQL Security Audit Queries](database/SQL_Security_Audit.sql)**: Queries to identify security misconfigurations in SQL databases.  
+- **[C++ Log Analysis Tool](automation/LogAnalysisTool.cpp)**: Parses and analyzes security logs for potential threats.  
+
+## **📌 Featured Projects**  
+### **IAM Role Manager**  
+🔹 **Tech Stack**: Python, Okta API, SailPoint, PowerShell  
+🔹 **Description**: Automates IAM role assignments and ensures compliance with security policies.  
+🔹 **[View Code](projects/IAM_Role_Manager.py)**  
+
+### **Cloud Security Policy Validator**  
+🔹 **Tech Stack**: AWS IAM, Python, Terraform  
+🔹 **Description**: Scans AWS IAM policies to detect misconfigurations and security vulnerabilities.  
+🔹 **[View Code](projects/Cloud_Security_Validator.py)**  
+
+### **Database Security Hardening Toolkit**  
+🔹 **Tech Stack**: SQL, PowerShell  
+🔹 **Description**: A set of scripts to enforce database security best practices.  
+🔹 **[View Code](projects/DB_Security_Hardening.sql)**  
+
+## **📩 Contact & Collaboration**  
+I am open to collaborating on **security engineering, IAM automation, and cloud security projects**.  
+🌎 Open to global opportunities | Fluent in **English & Spanish**  
+
