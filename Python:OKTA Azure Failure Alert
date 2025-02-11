@@ -1,0 +1,67 @@
+import smtplib
+import requests
+import msal
+import time
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Configuration
+OKTA_API_TOKEN = "your_okta_api_token"
+OKTA_DOMAIN = "your_okta_domain"
+AZURE_TENANT_ID = "your_azure_tenant_id"
+AZURE_CLIENT_ID = "your_azure_client_id"
+AZURE_CLIENT_SECRET = "your_azure_client_secret"
+ALERT_EMAIL = "xxxxxx@xxxx.com"
+SMTP_SERVER = "smtp.yourmail.com"
+SMTP_PORT = 587
+SMTP_USERNAME = "your_email@yourmail.com"
+SMTP_PASSWORD = "your_email_password"
+CHECK_INTERVAL = 6 * 60 * 60  # 6 hours in seconds
+
+# Function to get Azure access token using MSAL
+def get_azure_access_token():
+    app = msal.ConfidentialClientApplication(
+        AZURE_CLIENT_ID, authority=f"https://login.microsoftonline.com/{AZURE_TENANT_ID}", client_credential=AZURE_CLIENT_SECRET
+    )
+    token_response = app.acquire_token_for_client(scopes=["https://graph.microsoft.com/.default"])
+    return token_response.get("access_token")
+
+# Function to check Okta to Azure sync
+def check_user_sync():
+    headers = {"Authorization": f"SSWS {OKTA_API_TOKEN}", "Content-Type": "application/json"}
+    response = requests.get(f"https://{OKTA_DOMAIN}/api/v1/users", headers=headers)
+    
+    if response.status_code == 200:
+        users = response.json()
+        for user in users:
+            if user['status'] == "PROVISIONING" and "azure" in user['profile'].get('login', '').lower():
+                send_alert_email(user['profile']['login'])
+    else:
+        print("Failed to retrieve users from Okta.")
+
+# Function to send email alert
+def send_alert_email(username):
+    subject = "⚠️ Okta to Azure User Provisioning Failure Alert ⚠️"
+    body = f"User {username} failed to provision in Azure from Okta. Immediate action required."
+    
+    msg = MIMEMultipart()
+    msg['From'] = SMTP_USERNAME
+    msg['To'] = ALERT_EMAIL
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+    
+    try:
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(SMTP_USERNAME, SMTP_PASSWORD)
+        server.sendmail(SMTP_USERNAME, ALERT_EMAIL, msg.as_string())
+        server.quit()
+        print(f"Alert email sent for user: {username}")
+    except Exception as e:
+        print(f"Failed to send alert email: {e}")
+
+# Run the check every 6 hours
+if __name__ == "__main__":
+    while True:
+        check_user_sync()
+        time.sleep(CHECK_INTERVAL)
